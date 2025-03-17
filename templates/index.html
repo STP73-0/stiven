@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redimensionar Imagen</title>
+    <style>
+      h2 {
+        font-size: 29px;
+        color: cyan;
+      }
+      h3 {
+        font-size: 20px;
+        color: rgb(186, 245, 245);
+      }
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 40px;
+        background: linear-gradient(
+          135deg,
+          #283ee3,
+          #6d74d7,
+          #7bfff8
+        ); /* Degradado */
+        background-attachment: fixed; /* Fija el fondo */
+        background-size: cover; /* Cubre toda la pantalla */
+      }
+      form {
+        margin: 20px;
+        padding: 30px;
+        display: inline-block;
+        border-radius: 15px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px); /* Desenfoque */
+        background: linear-gradient(
+          135deg,
+          #3a1c71,
+          #d76d77,
+          #ffaf7b
+        ); /* Degradado similar */
+        color: white;
+      }
+      input,
+      button {
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      input[type="file"] {
+        font-size: 18px; /* Aumenta el tamaño de la fuente */
+        padding: 15px; /* Aumenta el relleno */
+      }
+      button {
+        background-color: #1895cb;
+        color: white;
+        border: 2px solid #00ff84;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #18cb4e;
+      }
+      img {
+        margin-top: 20px;
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 5px;
+        background: white;
+      }
+      a {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 12px 25px;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 8px;
+        background: #207284;
+        border: 2px solid #00ff84;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0 4px 10px rgba(0, 255, 132, 0.5);
+      }
+      a:hover {
+        background: #5500cc;
+        border-color: #00cc6a;
+        box-shadow: 0 6px 15px rgba(0, 255, 132, 0.8);
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body>
+    <h2>SUBE UNA IMAGEN Y CAMBIA SU TAMAÑO</h2>
+    <form method="POST" enctype="multipart/form-data">
+      <input type="file" name="image" required />
+      <input type="number" name="width" placeholder="Ancho" required />
+      <input type="number" name="height" placeholder="Alto" required />
+      <button type="submit">Redimensionar</button>
+    </form>
+
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %} {% if image_path %}
+    <h3>Imagen Redimensionada:</h3>
+    <img
+      src="{{ url_for('uploaded_file', filename=image_path) }}"
+      alt="Imagen Redimensionada"
+    />
+    <br />
+    <a href="{{ url_for('uploaded_file', filename=image_path) }}" download
+      >Descargar imagen</a
+    >
+    {% endif %}
+  </body>
+</html>
